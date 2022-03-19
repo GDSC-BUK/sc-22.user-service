@@ -12,6 +12,7 @@ ipython = "*"
 drf-yasg = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
+random-username = "*"
 
 [dev-packages]
 

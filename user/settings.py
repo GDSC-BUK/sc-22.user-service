@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party applications
     "rest_framework",
+    "rest_framework.authtoken",
     "corsheaders",
     "drf_yasg",
     # local application
@@ -72,7 +73,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "user.urls"
 
-REST_FRAMEWORK = {}
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}
 
 if not DEBUG:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
@@ -112,6 +117,9 @@ DATABASES = {
     }
 }
 
+# Auth User Model
+
+AUTH_USER_MODEL = "core.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
