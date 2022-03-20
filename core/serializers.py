@@ -11,7 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = "__all__"
+        exclude = ["password", "groups", "user_permissions"]
+        read_only_fields = [
+            "last_login",
+            "date_joined",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+        ]
 
     def get_token(self, obj):
         return obj.token
@@ -35,4 +42,4 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
 
     username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField()
