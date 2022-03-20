@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from rest_framework.authtoken.models import Token
-
 from random_username import generate as generate_username
 
+from user.utils import BaseModel
 
-class User(AbstractUser):
+
+class User(AbstractUser, BaseModel):
     class TYPES(models.TextChoices):
         NORMAL = "NR", "Normal"
         THERAPIST = "TH", "Therapist"
