@@ -2,7 +2,7 @@ from rest_framework.generics import GenericAPIView as View
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
 from core.serializers import LoginSerializer, RegisterSerializer, UserSerializer
 
@@ -29,8 +29,10 @@ class UserLoginAPI(View):
         user_creds = request.data
 
         user_login_serializer = self.get_serializer(data=user_creds)
+        user_login_serializer.is_valid(raise_exception=True)
 
         user = authenticate(**user_login_serializer.data)
+        login(request, user)
 
         if not user:
             return Response(
