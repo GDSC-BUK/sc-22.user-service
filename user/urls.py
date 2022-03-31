@@ -15,7 +15,7 @@ openapi_info = openapi.Info(
 
 schema_view = get_schema_view(
     openapi_info,
-    public=False,
+    public=True,
     permission_classes=[permissions.AllowAny],
 )
 
