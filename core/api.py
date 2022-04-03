@@ -16,7 +16,9 @@ class RegisterUserAPI(View):
 
         register_user_serializer = self.get_serializer(data=user_data)
         register_user_serializer.is_valid(raise_exception=True)
-        register_user_serializer.save()
+        register_user_serializer.save(
+            password=register_user_serializer.validated_data["password"]
+        )
 
         return Response(register_user_serializer.data, status=status.HTTP_201_CREATED)
 
