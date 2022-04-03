@@ -30,7 +30,6 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True,
         min_length=8,
-        allow_blank=False,
         style={"input_type": "password"},
     )
 
@@ -38,8 +37,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ["username", "password"]
 
+    def create(self, validated_data):
+        user = User.objects.create(**validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
+
+        return user
+
 
 class LoginSerializer(serializers.Serializer):
 
     username = serializers.CharField()
-    password = serializers.CharField()
+    password = serializers.CharField(min_length=8, style={"input_type": "password"})
