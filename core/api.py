@@ -32,12 +32,13 @@ class UserLoginAPI(View):
         user_login_serializer.is_valid(raise_exception=True)
 
         user = authenticate(**user_login_serializer.data)
-        login(request, user)
 
         if not user:
             return Response(
                 {"error": "Invalid Credentials"}, status=status.HTTP_401_UNAUTHORIZED
             )
+
+        login(request, user)
 
         serialized_user = UserSerializer(user)
 
